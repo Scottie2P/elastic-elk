@@ -6,7 +6,7 @@ services:
     volumes: 
       - ./plugin:/usr/share/elasticsearch/plugins
       - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - ./config/jvm.options:/usr/share/elasticsearch/config/jvm.options
+#       - ./config/jvm.options:/usr/share/elasticsearch/config/jvm.options
     hostname: elasticsearch
     ports:
       - "9200:9200"
