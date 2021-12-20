@@ -48,7 +48,7 @@ services:
       - elastic
     ports:
       - '5000:5000'    
-      - '9000:9000'  
+      - '9600:9600'  
     links:
       - elastic
     volumes:
