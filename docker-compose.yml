@@ -26,8 +26,8 @@ services:
   kibana:
     image: kibana:7.3.0
     container_name: kibana
-    volumes:
-      - ./config_kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+#     volumes:
+#       - ./config_kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
 #     deploy:
 #       resources:
 #         limits:
