@@ -53,8 +53,8 @@ services:
       - "9600:9600"      
     links:
       - elastic
-    volumes: 
-      - ./rails-udp-input.conf:/etc/logstash/conf.d/rails-udp-input.conf
+    volumes:
+      - ./config/docker-logstash.conf:/etc/logstash/conf.d/logstash.conf
     networks:
       - elasticnetwork
 
