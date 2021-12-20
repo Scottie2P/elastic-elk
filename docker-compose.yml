@@ -3,9 +3,9 @@ services:
   elastic:
     image: elasticsearch:7.3.0
     container_name: elasticsearch
-#     volumes: 
-#       - ./plugin:/usr/share/elasticsearch/plugins
-#       - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    volumes: 
+      - ./plugin:/usr/share/elasticsearch/plugins
+      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
 #       - ./config/jvm.options:/usr/share/elasticsearch/config/jvm.options
     hostname: elasticsearch
     ports:
@@ -17,8 +17,8 @@ services:
 #           cpus: '8'
 #         reservations:
 #           cpus: '0.25'
-#     environment:
-#       - "discovery.type=single-node"
+    environment:
+      - "discovery.type=single-node"
 #       - "ES_JAVA_OPTS=-Xms4000m -Xmx8000m"
 #       - "ES_JAVA_OPTS=-Xms2g -Xmx40g"
     networks:
