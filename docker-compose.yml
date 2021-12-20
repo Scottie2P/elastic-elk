@@ -5,7 +5,7 @@ services:
     container_name: elasticsearch
     volumes: 
       - ./plugin:/usr/share/elasticsearch/plugins
-      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+#       - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
 #       - ./config/jvm.options:/usr/share/elasticsearch/config/jvm.options
     hostname: elasticsearch
     ports:
