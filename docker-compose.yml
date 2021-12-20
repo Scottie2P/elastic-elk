@@ -47,8 +47,9 @@ services:
     depends_on:
       - elastic
     ports:
-      - '5000:5000'    
-      - '9600:9600'  
+      - "5000:5000"    
+      - "9600:9600"  
+      - "5044:5044"        
     links:
       - elastic
     volumes:
