@@ -1,0 +1,82 @@
+version: '3.3'
+services:
+  elastic:
+    image: elasticsearch:7.3.0
+    container_name: elasticsearch
+    volumes: 
+      - /home/worawut/Elastic/plugin:/usr/share/elasticsearch/plugins
+      - /home/worawut/Elastic/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  #    - /home/worawut/Elastic/config/jvm.options:/usr/share/elasticsearch/config/jvm.options
+    hostname: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    deploy:
+      resources:
+        limits:
+          cpus: '8'
+        reservations:
+          cpus: '0.25'
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms4000m -Xmx8000m"
+      - "ES_JAVA_OPTS=-Xms2g -Xmx40g"
+    networks:
+      - elasticnetwork
+  kibana:
+    image: kibana:7.3.0
+    container_name: kibana
+    volumes:
+      - /home/worawut/Elastic/config_kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+    deploy:
+      resources:
+        limits:
+          cpus: '8'
+        reservations:
+          cpus: '0.25'
+    ports:
+      - "5601:5601"
+    networks:
+      - elasticnetwork
+    environment:
+      - "ES_JAVA_OPTS=-Xms4000m -Xmx8000m"
+      - "ES_JAVA_OPTS=-Xms2g -Xmx40g"
+
+  logstash:
+    image: logstash:7.3.0
+    depends_on:
+      - elastic
+    links:
+      - elastic
+    networks:
+      - elasticnetwork
+
+  apm-server:
+    image: docker.elastic.co/apm/apm-server:7.3.0
+    ports:
+      - 8200:8200
+    environment:
+      - output.elasticsearch.hosts=['http://elasticsearch:9200']
+      - apm-server.host="0.0.0.0:8200"
+      - apm-server.secret_token="xxVpmQB2HMzCL9PgBHVrnxjNXXw5J7bd79DFm6sjBJR5HPXDhcF8MSb3vv4bpg44"
+      - setup.kibana.host="kibana:5601"
+      - setup.template.enabled=true
+      - logging.to_files=false
+    depends_on:
+      - elastic
+      - kibana
+    networks:
+      - elasticnetwork
+
+  metric-beat:
+    image: store/elastic/metricbeat:7.3.0
+    environment:
+      - ELASTICSEARCH_HOST=http://elasticsearch:9200
+      - KIBANA_HOST=http://kibana:5601
+  #    - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic}
+  #    - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
+    networks:
+      - elasticnetwork
+ 
+networks:
+    elasticnetwork:
