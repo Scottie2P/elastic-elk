@@ -57,32 +57,32 @@ services:
     networks:
       - elasticnetwork
 
-  apm-server:
-    image: docker.elastic.co/apm/apm-server:7.3.0
-    ports:
-      - 8200:8200
-    environment:
-      - output.elasticsearch.hosts=['http://elasticsearch:9200']
-      - apm-server.host="0.0.0.0:8200"
-      - apm-server.secret_token="xxVpmQB2HMzCL9PgBHVrnxjNXXw5J7bd79DFm6sjBJR5HPXDhcF8MSb3vv4bpg44"
-      - setup.kibana.host="kibana:5601"
-      - setup.template.enabled=true
-      - logging.to_files=false
-    depends_on:
-      - elastic
-      - kibana
-    networks:
-      - elasticnetwork
+#   apm-server:
+#     image: docker.elastic.co/apm/apm-server:7.3.0
+#     ports:
+#       - 8200:8200
+#     environment:
+#       - output.elasticsearch.hosts=['http://elasticsearch:9200']
+#       - apm-server.host="0.0.0.0:8200"
+#       - apm-server.secret_token="xxVpmQB2HMzCL9PgBHVrnxjNXXw5J7bd79DFm6sjBJR5HPXDhcF8MSb3vv4bpg44"
+#       - setup.kibana.host="kibana:5601"
+#       - setup.template.enabled=true
+#       - logging.to_files=false
+#     depends_on:
+#       - elastic
+#       - kibana
+#     networks:
+#       - elasticnetwork
 
-  metric-beat:
-    image: store/elastic/metricbeat:7.3.0
-    environment:
-      - ELASTICSEARCH_HOST=http://elasticsearch:9200
-      - KIBANA_HOST=http://kibana:5601
-  #    - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic}
-  #    - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
-    networks:
-      - elasticnetwork
+#   metric-beat:
+#     image: store/elastic/metricbeat:7.3.0
+#     environment:
+#       - ELASTICSEARCH_HOST=http://elasticsearch:9200
+#       - KIBANA_HOST=http://kibana:5601
+#   #    - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic}
+#   #    - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
+#     networks:
+#       - elasticnetwork
  
 networks:
     elasticnetwork:
