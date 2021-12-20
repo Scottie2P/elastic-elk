@@ -4,9 +4,9 @@ services:
     image: elasticsearch:7.3.0
     container_name: elasticsearch
     volumes: 
-      - /home/worawut/Elastic/plugin:/usr/share/elasticsearch/plugins
-      - /home/worawut/Elastic/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-  #    - /home/worawut/Elastic/config/jvm.options:/usr/share/elasticsearch/config/jvm.options
+      - ./plugin:/usr/share/elasticsearch/plugins
+      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  #    - ./config/jvm.options:/usr/share/elasticsearch/config/jvm.options
     hostname: elasticsearch
     ports:
       - "9200:9200"
@@ -27,7 +27,7 @@ services:
     image: kibana:7.3.0
     container_name: kibana
     volumes:
-      - /home/worawut/Elastic/config_kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+      - ./config_kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
     deploy:
       resources:
         limits:
